@@ -7,7 +7,7 @@ import gym
 import time
 import random
 
-class FooEnv(gym.Env):
+class SnakeEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
     def __init__(self):
@@ -27,7 +27,7 @@ class FooEnv(gym.Env):
 
         # move snake and set episode_over, if the game ends
         episode_over = False
-        move = self.movements(action.astype(bool))[0]
+        move = self.movements[action.astype(bool)][0]
         try:
             self.snake.move(move)
         except ValueError as e:
@@ -41,7 +41,7 @@ class FooEnv(gym.Env):
     def _reset(self):
         pass
 
-    def _render(self, mode='human', close=False):
+    def render(self, mode='human', close=False):
         try:
             self.screen.draw_background()
             self.screen.draw_apple(self.apple.position)

@@ -1,7 +1,7 @@
-from Screen import Screen
-from Snake import Snake
-from Gameinterfaces import Gameinterface, BotGameinterface
-from Apple import Apple
+from gym_snake.envs.Screen import Screen
+from gym_snake.envs.Snake import Snake
+from gym_snake.envs.Gameinterfaces import Gameinterface, BotGameinterface
+from gym_snake.envs.Apple import Apple
 import time
 import random
 

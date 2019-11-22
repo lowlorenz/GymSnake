@@ -1,4 +1,4 @@
-from Bot import SimpleBot
+from gym_snake.envs.Bot import SimpleBot
 
 class Gameinterface:
 
