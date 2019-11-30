@@ -1,27 +1,31 @@
 from tkinter import *
 
-
 class Screen:
 
-    def __init__(self):
-        master = Tk()
+    def __init__(self, debug = False):
+        self.master = Tk()
 
         self.canvas_width = 600
         self.canvas_height = 600
 
-        self.screen = Canvas(master, 
+        self.screen = Canvas(self.master, 
                 width=self.canvas_width,
                 height=self.canvas_height)
 
         self.draw_background()
-        
         self.screen.pack()
-        self.key = 'd'
-        master.bind('<Key>', self.set_key)
+
+        self.debug = debug
+        if debug:
+            self.debug_Label = Label(self.master)
+            self.debug_Label.pack()
 
     def draw_background(self):
         self.screen.create_rectangle(0,0, self.canvas_width+1, self.canvas_height+1, fill='gray')
 
+    def debug_state(self, action ,reward, episode_over):
+        if self.debug:
+            self.debug_Label['text'] = 'Action: {}\nReward: {}\nEpisode over: {}'.format(action, reward, episode_over)
 
     def draw_head(self, point):
         self.check_position_boundings(point)
@@ -64,7 +68,13 @@ class Screen:
     def update(self):
         self.screen.update()
         self.screen.delete('ALL')
+        
+    def reset(self):
+        if self.debug:
+            self.debug_Label['text'] = ''
+        self.screen.delete('ALL')
+        self.draw_background()    
 
-    def set_key(self, event):
-        self.key = event.keysym
-    
+    def close(self):
+        self.screen.delete('ALL')
+        self.master.destroy()
